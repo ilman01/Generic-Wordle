@@ -20,6 +20,7 @@ import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 
 var CorrectWord = ""
 var TodaysTheme = ""
+var LastUpdated = ""
 
 var restartInQueue = false;
 var onCooldown = false;
@@ -32,6 +33,7 @@ let lettersToBeFound = [];
 let nextLetter = 0;
 //var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 var rightGuessString = CorrectWord
+document.getElementById("last-updated").innerText = "Last Updated: " + LastUpdated;
 document.getElementById("todays-theme").innerText = "Today's Theme: " + TodaysTheme;
 lettersToBeFound = Array.from(rightGuessString);
 let indexesToBeFound = [];
