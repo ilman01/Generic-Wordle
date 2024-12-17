@@ -18,9 +18,9 @@ import { FOURTEENLETTERWORDS } from "./14-letter-words.js";
 import { FIFTEENLETTERWORDS } from "./15-letter-words.js";
 import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 
-var CorrectWord = ""
-var TodaysTheme = ""
-var LastUpdated = ""
+var CorrectWord = "whisk"
+var TodaysTheme = "Alice's Wonderland Bakery"
+var LastUpdated = "December 18th, 2024 (#1)"
 
 var restartInQueue = false;
 var onCooldown = false;
