@@ -15,8 +15,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="script.js" type="module"></script>
     <body>
-        <h1 id="title">Customized Wordle</h1>
-
+        <h1 id="title">Sweet's Wordle</h1>
+        <h1 style="font-size: small;">Forked from <a href="https://github.com/Gurge44/customized-wordle/">customized-wordle</a> by <a href="https://github.com/Gurge44">Gurge44</a></h1>
+        <h1 id="todays-theme" style="font-size: medium; color: gold;">Today's theme: </h1>
         <div id="timersDisplay">
             <table>
                 <tr id="mainTimerDisplay" hidden>
@@ -77,7 +78,7 @@
             </div>
         </div>
         
-        <p id="settingsLine"><button id="showSettings" class="button"><img src="settings.png" alt="Show/Hide Settings" title="Show/Hide Settings" style="width: 76px;"></button><button id="openColorConfig" class="button" onclick="var a = document.getElementById('main'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="colors_2.png" alt="Customize Colors" title="Customize Colors" style="width: 51px;"></button><button id="restart" class="button"><img src="restart.png" alt="Restart" title="Restart" style="width: 54px;"></button><button id="openTimers" class="button" onclick="var a = document.getElementById('timers'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="timers.jpg" alt="Open Timer Config" title="Open Timer Config" style="width: 51.5px;"></button><button class="button" id="openDebugOptions" onclick="var a = document.getElementById('debug'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="debug.png" alt="Open Debug Options" title="Open Debug Options" style="width: 60px;"></button></p>
+        <p style="display: none;" id="settingsLine"><button id="showSettings" class="button"><img src="settings.png" alt="Show/Hide Settings" title="Show/Hide Settings" style="width: 76px;"></button><button id="openColorConfig" class="button" onclick="var a = document.getElementById('main'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="colors_2.png" alt="Customize Colors" title="Customize Colors" style="width: 51px;"></button><button id="restart" class="button"><img src="restart.png" alt="Restart" title="Restart" style="width: 54px;"></button><button id="openTimers" class="button" onclick="var a = document.getElementById('timers'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="timers.jpg" alt="Open Timer Config" title="Open Timer Config" style="width: 51.5px;"></button><button class="button" id="openDebugOptions" onclick="var a = document.getElementById('debug'); if (a.hidden === true) {a.hidden = false;} else {a.hidden = true;}"><img src="debug.png" alt="Open Debug Options" title="Open Debug Options" style="width: 60px;"></button></p>
         <p id="countdownLine"><span id="countdown"></span><input type="button" value="cancel" id="cancel" hidden></p>
         <div id="settings" hidden>
             <p id="autoRestartLine"><label><input type="checkbox" name="autoRestart" id="autoRestart">Auto Restart after correct guess</label><br>Cooldown: <input type="number" name="autoRestartCooldown" id="autoRestartCooldown" value="3" min="1" class="input"></p>
@@ -179,5 +180,6 @@
             <p id="enableLoggingLine"><label><input type="checkbox" name="enableLogging" id="enableLogging">Enable Logging to Console</label></p>
         </div>
         <footer style="font-size: 0.1em; color: black !important; text-align: center;"><a href='https://pngtree.com/so/start' target="_blank" style="font-size: 0.1em; color: black !important; text-decoration: none;">start png from pngtree.com/</a></footer>
+        
     </body>
 </html>

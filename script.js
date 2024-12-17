@@ -1,6 +1,6 @@
 document.getElementById("error").innerHTML = "Loading....";
 let version = "v3.1.0";
-document.getElementById("title").innerText = "Customized Wordle " + version;
+document.getElementById("title").innerText = "Sweet's Wordle " + version;
 toastr.options.progressBar = true;
 
 import { WORDS } from "./words.js";
@@ -18,16 +18,21 @@ import { FOURTEENLETTERWORDS } from "./14-letter-words.js";
 import { FIFTEENLETTERWORDS } from "./15-letter-words.js";
 import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 
+var CorrectWord = ""
+var TodaysTheme = ""
+
 var restartInQueue = false;
 var onCooldown = false;
 var wordLength = 5;
-var NUMBER_OF_GUESSES = 9; // EDIT THIS NUMBER TO CHANGE THE AMOUNT OF GUESSES YOU HAVE
+var NUMBER_OF_GUESSES = 6; // EDIT THIS NUMBER TO CHANGE THE AMOUNT OF GUESSES YOU HAVE
 let guessesRemaining = NUMBER_OF_GUESSES;
 var kept = guessesRemaining;
 let currentGuess = [];
 let lettersToBeFound = [];
 let nextLetter = 0;
-var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+//var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+var rightGuessString = CorrectWord
+document.getElementById("todays-theme").innerText = "Today's Theme: " + TodaysTheme;
 lettersToBeFound = Array.from(rightGuessString);
 let indexesToBeFound = [];
 for (let o = 0; o < wordLength; o++) {
@@ -390,7 +395,7 @@ function startMainTimer() {
                 clearInterval(timer2);
                 guessesRemaining = 0;
                 toastr.error("You ran out of time! Game over!");
-                toastr.info(`The right word was: "${rightGuessString}"`)
+                //toastr.info(`The right word was: "${rightGuessString}"`)
                 mainTimerRunning = false;
                 cancel3 = true;
             }
@@ -482,7 +487,7 @@ function startPerGuessTimer() {
                 clearInterval(timer3);
                 guessesRemaining = 0;
                 toastr.error("You didn't make a guess in time! Game over!");
-                toastr.info(`The right word was: "${rightGuessString}"`)
+                //toastr.info(`The right word was: "${rightGuessString}"`)
                 guessTimerRunning = false;
                 hideMainTimer = false;
                 cancel2 = true;
@@ -870,8 +875,8 @@ function checkGuess() {
         }
 
         if (guessesRemaining <= 0) {
-            toastr.error("You've run out of guesses! Game over!");
-            toastr.info(`The right word was: "${rightGuessString}"`);
+            toastr.error("You've run out of guesses! Refresh to try again!");
+            //toastr.info(`The right word was: "${rightGuessString}"`);
         }
     }
     setTimeout(() => {
