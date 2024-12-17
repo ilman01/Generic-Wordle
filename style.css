@@ -3,6 +3,10 @@
     src: url(square-deal.ttf);
 }
 
+* {
+    touch-action: manipulation;
+}
+
 h1 {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
