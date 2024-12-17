@@ -1,6 +1,6 @@
 document.getElementById("error").innerHTML = "Loading....";
 let version = "v3.1.0";
-document.getElementById("title").innerText = "Sweet's Wordle " + version;
+document.getElementById("title").innerText = "Sweet's Wordle";
 toastr.options.progressBar = true;
 
 import { WORDS } from "./words.js";
