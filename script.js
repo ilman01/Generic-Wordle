@@ -3,6 +3,7 @@ let version = "v3.1.0";
 document.getElementById("title").innerText = "Sweet's Wordle";
 toastr.options.progressBar = true;
 
+import wordScheduleData from './wordScheduleData.js';
 import { WORDS } from "./words.js";
 import { SIXLETTERWORDS } from "./6-letter-words.js";
 import { SEVENLETTERWORDS } from "./7-letter.words.js";
@@ -18,13 +19,22 @@ import { FOURTEENLETTERWORDS } from "./14-letter-words.js";
 import { FIFTEENLETTERWORDS } from "./15-letter-words.js";
 import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 
-var CorrectWord = "paris"
-var TodaysTheme = "Fancy Nancy"
-var LastUpdated = "December 19th, 2024 (#2)"
+const todaysDatePST = getPacificTimeDate();
+console.log(todaysDatePST);
+
+const word_number_of_the_day = wordScheduleData[todaysDatePST]?.word_number;
+const word_length_of_the_day = wordScheduleData[todaysDatePST]?.word_length;
+const word_of_the_day = wordScheduleData[todaysDatePST]?.word;
+const theme_of_the_day = wordScheduleData[todaysDatePST]?.theme;
+
+setInterval(updateCountdown, 1000);
+
+var CorrectWord = word_of_the_day
+var TodaysTheme = theme_of_the_day
 
 var restartInQueue = false;
 var onCooldown = false;
-var wordLength = 5;
+var wordLength = word_length_of_the_day;
 var NUMBER_OF_GUESSES = 6; // EDIT THIS NUMBER TO CHANGE THE AMOUNT OF GUESSES YOU HAVE
 let guessesRemaining = NUMBER_OF_GUESSES;
 var kept = guessesRemaining;
@@ -33,7 +43,6 @@ let lettersToBeFound = [];
 let nextLetter = 0;
 //var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 var rightGuessString = CorrectWord
-document.getElementById("last-updated").innerText = "Last Updated: " + LastUpdated;
 document.getElementById("todays-theme").innerText = "Today's Theme: " + TodaysTheme;
 lettersToBeFound = Array.from(rightGuessString);
 let indexesToBeFound = [];
@@ -71,6 +80,60 @@ var noTimeChangeColor = "#ffe135";
 var timeChangeNegativeColor = "#ff0000";
 var isSquare = true;
 var isGuessCheckInProgress = false;
+
+function updateCountdown() {
+    // Get current time in UTC
+    const now = new Date();
+
+    // Get the current date and time in Pacific Time Zone (PST or PDT)
+    const pacificTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+
+    // Set target time for midnight Pacific Time (next day)
+    const targetTime = new Date(pacificTime);
+    targetTime.setHours(24, 0, 0, 0); // Set target to 12:00 AM next day
+
+    // Calculate time difference in seconds
+    const timeDifference = targetTime - pacificTime;
+
+    // If the target time has already passed, adjust to next midnight
+    if (timeDifference < 0) {
+        targetTime.setDate(targetTime.getDate() + 1);
+    }
+
+    // Calculate hours, minutes, and seconds left
+    const hoursLeft = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    // Format the time in HH:MM:SS
+    const formattedTime = `${padZero(hoursLeft)}:${padZero(minutesLeft)}:${padZero(secondsLeft)}`;
+
+    // Update the countdown display
+    document.getElementById("last-updated").innerText = "New Word in " + formattedTime + " (#" + word_number_of_the_day + ")";
+
+    if (timeDifference <= 1000) {
+        setTimeout(() => {
+            location.reload(); // Refresh the page
+        }, 2000); // Refresh after 2 second to ensure it's after midnight
+    }
+}
+
+// Helper function to pad numbers with leading zero if necessary
+function padZero(num) {
+    return num < 10 ? "0" + num : num;
+}
+
+function getPacificTimeDate() {
+    const options = { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const parts = formatter.formatToParts(new Date());
+
+    const year = parts.find(p => p.type === 'year').value;
+    const month = parts.find(p => p.type === 'month').value;
+    const day = parts.find(p => p.type === 'day').value;
+
+    return `${year}-${month}-${day}`;
+}
 
 function applyColorConfig() {
     document.body.style.backgroundColor = document.getElementById("BackgroundColor").value;
