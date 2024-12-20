@@ -44,6 +44,7 @@ let nextLetter = 0;
 //var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 var rightGuessString = CorrectWord
 document.getElementById("todays-theme").innerText = "Today's Theme: " + TodaysTheme;
+document.getElementById("word-number").innerText = "Word Number: #" + word_number_of_the_day;
 lettersToBeFound = Array.from(rightGuessString);
 let indexesToBeFound = [];
 for (let o = 0; o < wordLength; o++) {
@@ -109,7 +110,7 @@ function updateCountdown() {
     const formattedTime = `${padZero(hoursLeft)}:${padZero(minutesLeft)}:${padZero(secondsLeft)}`;
 
     // Update the countdown display
-    document.getElementById("last-updated").innerText = "New Word in " + formattedTime + " (#" + word_number_of_the_day + ")";
+    document.getElementById("last-updated").innerText = "New Word in " + formattedTime;
 
     if (timeDifference <= 1000) {
         setTimeout(() => {
