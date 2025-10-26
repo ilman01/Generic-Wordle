@@ -1,9 +1,24 @@
+document.getElementById("title").innerText = "Generic Wordle";
+
+// Configure the word here!
+const word_number_of_the_day = 69;
+const word_length_of_the_day = 5;
+const word_of_the_day = "hello";
+const theme_of_the_day = "Testing";
+
+const midnight_timezone = "Asia/Jakarta";
+
+setInterval(updateCountdown, 1000);
+
+document.getElementById("todays-theme").innerText = "Today's Theme: " + theme_of_the_day;
+document.getElementById("word-number").innerText = "Word Number: #" + word_number_of_the_day;
+
+// -----------------------------------------------
+
 document.getElementById("error").innerHTML = "Loading....";
 let version = "v3.1.0";
-document.getElementById("title").innerText = "Sweet's Wordle";
 toastr.options.progressBar = true;
 
-import wordScheduleData from './wordScheduleData.js';
 import { WORDS } from "./words.js";
 import { SIXLETTERWORDS } from "./6-letter-words.js";
 import { SEVENLETTERWORDS } from "./7-letter.words.js";
@@ -19,19 +34,6 @@ import { FOURTEENLETTERWORDS } from "./14-letter-words.js";
 import { FIFTEENLETTERWORDS } from "./15-letter-words.js";
 import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 
-const todaysDatePST = getPacificTimeDate();
-console.log(todaysDatePST);
-
-const word_number_of_the_day = wordScheduleData[todaysDatePST]?.word_number;
-const word_length_of_the_day = wordScheduleData[todaysDatePST]?.word_length;
-const word_of_the_day = wordScheduleData[todaysDatePST]?.word;
-const theme_of_the_day = wordScheduleData[todaysDatePST]?.theme;
-
-setInterval(updateCountdown, 1000);
-
-var CorrectWord = word_of_the_day
-var TodaysTheme = theme_of_the_day
-
 var restartInQueue = false;
 var onCooldown = false;
 var wordLength = word_length_of_the_day;
@@ -42,14 +44,14 @@ let currentGuess = [];
 let lettersToBeFound = [];
 let nextLetter = 0;
 //var rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
-var rightGuessString = CorrectWord
-document.getElementById("todays-theme").innerText = "Today's Theme: " + TodaysTheme;
-document.getElementById("word-number").innerText = "Word Number: #" + word_number_of_the_day;
+
+var rightGuessString = word_of_the_day
 lettersToBeFound = Array.from(rightGuessString);
 let indexesToBeFound = [];
 for (let o = 0; o < wordLength; o++) {
     indexesToBeFound.push(o);
 }
+
 var greenColor = "#008000";
 var yellowColor = "#afaf00";
 var greyColor = "#000000";
@@ -87,7 +89,7 @@ function updateCountdown() {
     const now = new Date();
 
     // Get the current date and time in Pacific Time Zone (PST or PDT)
-    const pacificTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+    const pacificTime = new Date(now.toLocaleString("en-US", { timeZone: midnight_timezone }));
 
     // Set target time for midnight Pacific Time (next day)
     const targetTime = new Date(pacificTime);
@@ -122,18 +124,6 @@ function updateCountdown() {
 // Helper function to pad numbers with leading zero if necessary
 function padZero(num) {
     return num < 10 ? "0" + num : num;
-}
-
-function getPacificTimeDate() {
-    const options = { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    const parts = formatter.formatToParts(new Date());
-
-    const year = parts.find(p => p.type === 'year').value;
-    const month = parts.find(p => p.type === 'month').value;
-    const day = parts.find(p => p.type === 'day').value;
-
-    return `${year}-${month}-${day}`;
 }
 
 function applyColorConfig() {
@@ -703,7 +693,7 @@ function checkGuess() {
         return;
     }
 
-    if (!WORDS.includes(guessString) && !SIXLETTERWORDS.includes(guessString) && !SEVENLETTERWORDS.includes(guessString) && !EIGHTLETTERWORDS.includes(guessString) && !THREELETTERWORDS.includes(guessString) && !FOURLETTERWORDS.includes(guessString) && !NINELETTERWORDS.includes(guessString) && !TENLETTERWORDS.includes(guessString) && !ELEVENLETTERWORDS.includes(guessString) && !TWELVELETTERWORDS.includes(guessString) && !THIRTEENLETTERWORDS.includes(guessString) && !FOURTEENLETTERWORDS.includes(guessString) && !FIFTEENLETTERWORDS.includes(guessString) && !SIXTEENLETTERWORDS.includes(guessString)) {
+    if (!WORDS.includes(guessString) && !SIXLETTERWORDS.includes(guessString) && !SEVENLETTERWORDS.includes(guessString) && !EIGHTLETTERWORDS.includes(guessString) && !THREELETTERWORDS.includes(guessString) && !FOURLETTERWORDS.includes(guessString) && !NINELETTERWORDS.includes(guessString) && !TENLETTERWORDS.includes(guessString) && !ELEVENLETTERWORDS.includes(guessString) && !TWELVELETTERWORDS.includes(guessString) && !THIRTEENLETTERWORDS.includes(guessString) && !FOURTEENLETTERWORDS.includes(guessString) && !FIFTEENLETTERWORDS.includes(guessString) && !SIXTEENLETTERWORDS.includes(guessString) && guessString != word_of_the_day) {
         toastr.error("Invalid guess:\nWord not in list!");
         row.style.backgroundColor = invalidColor;
         setTimeout(() => {
