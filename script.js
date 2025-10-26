@@ -5,6 +5,7 @@ const word_number_of_the_day = 69;
 const word_length_of_the_day = 5;
 const word_of_the_day = "hello";
 const theme_of_the_day = "Testing";
+var NUMBER_OF_GUESSES = 6;
 
 const midnight_timezone = "Asia/Jakarta";
 
@@ -37,7 +38,6 @@ import { SIXTEENLETTERWORDS } from "./16-letter-words.js";
 var restartInQueue = false;
 var onCooldown = false;
 var wordLength = word_length_of_the_day;
-var NUMBER_OF_GUESSES = 6; // EDIT THIS NUMBER TO CHANGE THE AMOUNT OF GUESSES YOU HAVE
 let guessesRemaining = NUMBER_OF_GUESSES;
 var kept = guessesRemaining;
 let currentGuess = [];
